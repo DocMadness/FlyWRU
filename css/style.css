@@ -1,0 +1,18 @@
+#flywru h1, p {
+	text-align: center;
+}
+
+#gamefield table {
+	margin: 0 auto;
+	border: 4px double black; /* Рамка вокруг таблицы */
+	border-collapse: collapse; /* Отображать только одинарные линии */
+}
+
+#gamefield td { 
+	padding: 5px; /* Поля вокруг содержимого ячеек */
+	border: 1px solid black; /* Граница вокруг ячеек */
+	background: #ccddee; /* Цвет фона ячеек */
+	width: 48px;
+	height: 48px;
+	text-align: center;
+}
