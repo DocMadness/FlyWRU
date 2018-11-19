@@ -1,4 +1,4 @@
 # FlyWRU
 Full name: "Fly Where Are You?" - word games among friends.
 
-![Screenshot](https://i.imgur.com/rXOGAfs.png)
+![Screenshot](https://i.imgur.com/nKgMplE.png)
