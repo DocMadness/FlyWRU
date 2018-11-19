@@ -1,0 +1,87 @@
+#flywru h1, p {
+	text-align: center;
+}
+
+#gamefield table {
+	margin: 0 auto;
+	border: 4px double black; /* Рамка вокруг таблицы */
+	border-collapse: collapse; /* Отображать только одинарные линии */
+}
+
+#gamefield td { 
+	padding: 5px; /* Поля вокруг содержимого ячеек */
+	border: 1px solid black; /* Граница вокруг ячеек */
+	background: #ccddee; /* Цвет фона ячеек */
+	width: 48px;
+	height: 48px;
+	text-align: center;
+}
+
+.maincontrolbutton a {
+	cursor: pointer;
+	display: block;
+	line-height: 20px;
+	text-align: center;
+	background-image: url("/images/maincontrolbuttons.png");
+	background-repeat: no-repeat;
+}
+.maincontrolbutton.left a:hover,
+.maincontrolbutton.right a:hover,
+.maincontrolbutton.up a:hover,
+.maincontrolbutton.down a:hover {
+	background-position: -50px 0;
+}
+.maincontrolbutton.left a:active,
+.maincontrolbutton.right a:active,
+.maincontrolbutton.up a:active,
+.maincontrolbutton.down a:active {
+	background-position: -100px 0;
+}
+.maincontrolbutton.left {
+	height: 150px;
+	width: 50px;
+}
+.maincontrolbutton.left a {
+	height: 150px;
+	width: 50px;
+}
+.maincontrolbutton.right {
+	height: 150px;
+	width: 50px;
+}
+.maincontrolbutton.right a {
+	transform: scaleX(-1);
+	height: 150px;
+	width: 50px;
+}
+.maincontrolbutton.up {
+	height: 50px;
+	width: 150px;
+	margin: 0 auto;
+}
+.maincontrolbutton.up a {
+	transform: rotate(90deg);
+	height: 150px;
+	width: 50px;
+	position: relative;
+	top: -50px;
+	left: 50px;
+}
+.maincontrolbutton.down {
+	height: 50px;
+	width: 150px;
+	margin: 0 auto;
+}
+.maincontrolbutton.down a {
+	transform: rotate(-90deg);
+	height: 150px;
+	width: 50px;
+	position: relative;
+	top: -50px;
+	left: 50px;
+}
+
+#fly {
+	width: 50px;
+	height: 50px;
+}
