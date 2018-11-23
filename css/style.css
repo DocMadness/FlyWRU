@@ -104,6 +104,10 @@
 	height: 30px;
 }
 
+#info-steps, #info-outward {
+	font-weight: 700;
+}
+
 footer {
 	margin:0 auto;
 	text-align: center;

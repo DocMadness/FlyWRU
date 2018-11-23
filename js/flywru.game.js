@@ -12,6 +12,12 @@ const fly_up = 0, fly_right = 1, fly_down = 2, fly_left = 3;
 //переменная хранит скрыта муха или нет
 var fly_hide = false;
 
+//кол-во ходов
+var fly_steps = 0;
+
+//кол-во выходов за пределы поля
+var fly_outwards = 0;
+
 $(document).ready(function () {
 	//инициализировать игровое поле
 	init_gamefield();
@@ -78,6 +84,8 @@ function get_coord_y() {
 }
 
 function maincontrolbutton_up() {
+	info_steps_add();
+	
 	var x = get_coord_x();
 	var y = get_coord_y();
 	
@@ -86,11 +94,15 @@ function maincontrolbutton_up() {
 			gamefield[y][x] = -1;
 			gamefield[y - 1][x] = fly_up;
 			gamefield_view();
+		} else {
+			info_outwards_add();
 		}
 	}
 }
 
 function maincontrolbutton_left() {
+	info_steps_add();
+	
 	var x = get_coord_x();
 	var y = get_coord_y();
 	
@@ -99,11 +111,15 @@ function maincontrolbutton_left() {
 			gamefield[y][x] = -1;
 			gamefield[y][x - 1] = fly_left;
 			gamefield_view();
+		} else {
+			info_outwards_add();
 		}
 	}
 }
 
 function maincontrolbutton_right() {
+	info_steps_add();
+	
 	var x = get_coord_x();
 	var y = get_coord_y();
 	
@@ -112,11 +128,15 @@ function maincontrolbutton_right() {
 			gamefield[y][x] = -1;
 			gamefield[y][x + 1] = fly_right;
 			gamefield_view();
+		} else {
+			info_outwards_add();
 		}
 	}
 }
 
 function maincontrolbutton_down() {
+	info_steps_add();
+	
 	var x = get_coord_x();
 	var y = get_coord_y();
 	
@@ -125,6 +145,8 @@ function maincontrolbutton_down() {
 			gamefield[y][x] = -1;
 			gamefield[y + 1][x] = fly_down;
 			gamefield_view();
+		} else {
+			info_outwards_add();
 		}
 	}
 }
@@ -155,7 +177,34 @@ function control_showhide() {
 	}
 }
 
+function info_outwards_add() {
+	fly_outwards++;
+	if (fly_outwards > 0) {
+		var td = document.getElementById('td-info-outward');
+		td.style.color = 'red';
+	}
+	
+	var info_outwards = document.getElementById('info-outward');
+	info_outwards.innerHTML = fly_outwards;
+}
+
+function info_steps_add() {
+	fly_steps++;
+	
+	var info_steps = document.getElementById('info-steps');
+	info_steps.innerHTML = fly_steps;
+}
+
 function control_reset() {
+	fly_steps = 0;
+	fly_outwards = 0;
+	var td = document.getElementById('td-info-outward');
+	td.style.color = 'black';
+	var info_outwards = document.getElementById('info-outward');
+	info_outwards.innerHTML = 0;
+	var info_steps = document.getElementById('info-steps');
+	info_steps.innerHTML = 0;
+	
 	init_gamefield();
 	
 	fly_hide = false;
