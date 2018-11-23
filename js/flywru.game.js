@@ -9,6 +9,9 @@ var gamefield = [];
 //код поворота мухи
 const fly_up = 0, fly_right = 1, fly_down = 2, fly_left = 3;
 
+//переменная хранит скрыта муха или нет
+var fly_hide = false;
+
 $(document).ready(function () {
 	//инициализировать игровое поле
 	init_gamefield();
@@ -26,21 +29,25 @@ function gamefield_view() {
 	
 	for (var r = 0, n = table.rows.length; r < n; r++) {
 		for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
-			var d = gamefield[r][c];
-			if (d === -1) {
-				table.rows[r].cells[c].innerHTML = "";
-			} 
-			else if (d === 0) {
-				table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png">';
-			}
-			else if (d === 1) {
-				table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(90deg)">';
-			}
-			else if (d === 2) {
-				table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(180deg)">';
-			}
-			else if (d === 3) {
-				table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(-90deg)">';
+			if (fly_hide) {
+				table.rows[r].cells[c].innerHTML = "?";
+			} else {
+				var d = gamefield[r][c];
+				if (d === -1) {
+					table.rows[r].cells[c].innerHTML = "";
+				} 
+				else if (d === 0) {
+					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png">';
+				}
+				else if (d === 1) {
+					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(90deg)">';
+				}
+				else if (d === 2) {
+					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(180deg)">';
+				}
+				else if (d === 3) {
+					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(-90deg)">';
+				}
 			}
 		}
 	}
@@ -119,5 +126,31 @@ function maincontrolbutton_down() {
 			gamefield[y + 1][x] = fly_down;
 			gamefield_view();
 		}
+	}
+}
+
+function control_showhide() {
+	if (!fly_hide) {
+		fly_hide = true;
+		
+		//меняем название кнопки
+		var button = document.getElementById("button-showhide");
+		button.innerHTML = "Show";
+		
+		//заполняем все поле знаками '?'
+		var table = document.getElementById("gamefieldtable");
+		for (var r = 0, n = table.rows.length; r < n; r++) {
+			for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
+				table.rows[r].cells[c].innerHTML = "?";
+			}
+		}
+	} else {
+		fly_hide = false;
+		
+		//меняем название кнопки
+		var button = document.getElementById("button-showhide");
+		button.innerHTML = "Hide";
+		
+		gamefield_view();
 	}
 }
