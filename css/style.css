@@ -22,7 +22,7 @@
 	display: block;
 	line-height: 20px;
 	text-align: center;
-	background-image: url("/images/maincontrolbuttons.png");
+	background-image: url("../images/maincontrolbuttons.png");
 	background-repeat: no-repeat;
 }
 .maincontrolbutton.left a:hover,
