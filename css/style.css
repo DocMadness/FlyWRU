@@ -91,6 +91,14 @@
 	text-align: center;
 }
 
+#control ul {
+	list-style-type: none;
+	padding: 0;
+}
+#control li {
+	margin-bottom: 15px;
+}
+
 #control button {
 	width: 200px;
 	height: 30px;

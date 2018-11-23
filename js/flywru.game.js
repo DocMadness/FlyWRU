@@ -154,3 +154,13 @@ function control_showhide() {
 		gamefield_view();
 	}
 }
+
+function control_reset() {
+	init_gamefield();
+	
+	fly_hide = false;
+	var button = document.getElementById("button-showhide");
+	button.innerHTML = "Hide";
+	
+	gamefield_view();
+}
