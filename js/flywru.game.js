@@ -15,8 +15,8 @@ var fly_hide = false;
 //кол-во ходов
 var fly_steps = 0;
 
-//кол-во выходов за пределы поля
-var fly_outwards = 0;
+//выход за пределы поля
+var fly_outward = false;
 
 $(document).ready(function () {
 	//инициализировать игровое поле
