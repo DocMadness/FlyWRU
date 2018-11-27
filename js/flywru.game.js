@@ -23,14 +23,14 @@ $(document).ready(function () {
 	init_gamefield();
 	
 	//обновить игровое поле
-	gamefield_view();
+	gamefield_view(false);
 });
 
 function init_gamefield() {
 	gamefield = [[-1, -1, -1],[-1, 0, -1],[-1, -1, -1]];
 }
 
-function gamefield_view() {
+function gamefield_view(bgcolor) {
 	var table = document.getElementById("gamefieldtable");
 	
 	for (var r = 0, n = table.rows.length; r < n; r++) {
@@ -43,16 +43,32 @@ function gamefield_view() {
 					table.rows[r].cells[c].innerHTML = "";
 				} 
 				else if (d === 0) {
-					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png">';
+					if (!bgcolor) {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png">';
+					} else {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="background-color: red;">';
+					}
 				}
 				else if (d === 1) {
-					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(90deg)">';
+					if (!bgcolor) {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(90deg);">';
+					} else {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(90deg); background-color: red;">';
+					}
 				}
 				else if (d === 2) {
-					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(180deg)">';
+					if (!bgcolor) {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(180deg);">';
+					} else {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(180deg); background-color: red;">';
+					}
 				}
 				else if (d === 3) {
-					table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(-90deg)">';
+					if (!bgcolor) {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(-90deg)">';
+					} else {
+						table.rows[r].cells[c].innerHTML = '<img id="fly" src="images/fly.png" style="transform:rotate(-90deg); background-color: red;">';
+					}
 				}
 			}
 		}
@@ -83,70 +99,130 @@ function get_coord_y() {
 	return -1;
 }
 
+function get_fly_dir() {
+	for (var r = 0, n = gamefield.length; r < n; r++) {
+		for (var c = 0, m = gamefield[r].length; c < m; c++) {
+			var d = gamefield[r][c];
+			if (d > -1) {
+				return d;
+			}
+		}
+	}
+	return -1;
+}
+
 function maincontrolbutton_up() {
-	info_steps_add();
-	
-	var x = get_coord_x();
-	var y = get_coord_y();
-	
-	if (x > -1 && y > -1) {
-		if (y > 0) {
-			gamefield[y][x] = -1;
-			gamefield[y - 1][x] = fly_up;
-			gamefield_view();
+	if (!fly_outward) {
+		if (get_fly_dir() != 2) {
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'none';
+			
+			info_steps_add();
+		
+			var x = get_coord_x();
+			var y = get_coord_y();
+			
+			if (x > -1 && y > -1) {
+				if (y > 0) {
+					gamefield[y][x] = -1;
+					gamefield[y - 1][x] = fly_up;
+					gamefield_view(false);
+				} else {
+					gamefield[y][x] = fly_up;
+					set_gameover();
+					gamefield_view(true);
+				}
+			}
 		} else {
-			info_outwards_add();
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'block';
 		}
 	}
 }
 
 function maincontrolbutton_left() {
-	info_steps_add();
+	if (!fly_outward) {
+		if (get_fly_dir() != 1) {
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'none';
+			
+			info_steps_add();
 	
-	var x = get_coord_x();
-	var y = get_coord_y();
-	
-	if (x > -1 && y > -1) {
-		if (x > 0) {
-			gamefield[y][x] = -1;
-			gamefield[y][x - 1] = fly_left;
-			gamefield_view();
+			var x = get_coord_x();
+			var y = get_coord_y();
+			
+			if (x > -1 && y > -1) {
+				if (x > 0) {
+					gamefield[y][x] = -1;
+					gamefield[y][x - 1] = fly_left;
+					gamefield_view(false);
+				} else {
+					gamefield[y][x] = fly_left;
+					set_gameover();
+					gamefield_view(true);
+				}
+			}
 		} else {
-			info_outwards_add();
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'block';
 		}
 	}
 }
 
 function maincontrolbutton_right() {
-	info_steps_add();
+	if (!fly_outward) {
+		if (get_fly_dir() != 3) {
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'none';
+			
+			info_steps_add();
 	
-	var x = get_coord_x();
-	var y = get_coord_y();
-	
-	if (x > -1 && y > -1) {
-		if (x < 2) {
-			gamefield[y][x] = -1;
-			gamefield[y][x + 1] = fly_right;
-			gamefield_view();
+			var x = get_coord_x();
+			var y = get_coord_y();
+			
+			if (x > -1 && y > -1) {
+				if (x < 2) {
+					gamefield[y][x] = -1;
+					gamefield[y][x + 1] = fly_right;
+					gamefield_view(false);
+				} else {
+					gamefield[y][x] = fly_right;
+					set_gameover();
+					gamefield_view(true);
+				}
+			}
 		} else {
-			info_outwards_add();
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'block';
 		}
 	}
 }
 
 function maincontrolbutton_down() {
-	info_steps_add();
+	if (!fly_outward) {
+		if (get_fly_dir() != 0 || fly_steps == 0) {
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'none';
+			
+			info_steps_add();
 	
-	var x = get_coord_x();
-	var y = get_coord_y();
-	
-	if (x > -1 && y > -1) {
-		if (y < 2) {
-			gamefield[y][x] = -1;
-			gamefield[y + 1][x] = fly_down;
-			gamefield_view();
+			var x = get_coord_x();
+			var y = get_coord_y();
+			
+			if (x > -1 && y > -1) {
+				if (y < 2) {
+					gamefield[y][x] = -1;
+					gamefield[y + 1][x] = fly_down;
+					gamefield_view(false);
+				} else {
+					gamefield[y][x] = fly_down;
+					set_gameover();
+					gamefield_view(true);
+				}
+			}
 		} else {
-			info_outwards_add();
+			var infonotback = document.getElementById('infonotback');
+			infonotback.style.display = 'block';
 		}
 	}
 }
@@ -173,19 +249,15 @@ function control_showhide() {
 		var button = document.getElementById("button-showhide");
 		button.innerHTML = "Hide";
 		
-		gamefield_view();
+		gamefield_view(fly_outward);
 	}
 }
 
-function info_outwards_add() {
-	fly_outwards++;
-	if (fly_outwards > 0) {
-		var td = document.getElementById('td-info-outward');
-		td.style.color = 'red';
-	}
+function set_gameover() {
+	fly_outward = true;
 	
-	var info_outwards = document.getElementById('info-outward');
-	info_outwards.innerHTML = fly_outwards;
+	var gameover = document.getElementById('gameover');
+	gameover.style.display = 'block';
 }
 
 function info_steps_add() {
@@ -196,12 +268,14 @@ function info_steps_add() {
 }
 
 function control_reset() {
+	var gameover = document.getElementById('gameover');
+	gameover.style.display = 'none';
+	
+	var infonotback = document.getElementById('infonotback');
+	infonotback.style.display = 'none';
+	
 	fly_steps = 0;
-	fly_outwards = 0;
-	var td = document.getElementById('td-info-outward');
-	td.style.color = 'black';
-	var info_outwards = document.getElementById('info-outward');
-	info_outwards.innerHTML = 0;
+	fly_outward = false;
 	var info_steps = document.getElementById('info-steps');
 	info_steps.innerHTML = 0;
 	
@@ -211,5 +285,5 @@ function control_reset() {
 	var button = document.getElementById("button-showhide");
 	button.innerHTML = "Hide";
 	
-	gamefield_view();
+	gamefield_view(false);
 }
