@@ -108,6 +108,28 @@
 	font-weight: 700;
 }
 
+#infonotback {
+	display: none;
+	border: 1px solid #000;
+	color: black;
+	background: #eacc27;
+	text-decoration: underline;
+	text-transform: uppercase;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+#gameover {
+	display: none;
+	border: 1px solid #000;
+	color: white;
+	background: #a10000;
+	text-decoration: underline;
+	text-transform: uppercase;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
 footer {
 	margin:0 auto;
 	text-align: center;
