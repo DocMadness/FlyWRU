@@ -18,7 +18,16 @@ var fly_steps = 0;
 //выход за пределы поля
 var fly_outward = false;
 
+//таблица игроков
+var players = [];
+
 $(document).ready(function () {
+	//инициализация игроков
+	players = [['Guest', 0]];
+	
+	//обновить таблицу игроков
+	tableplayers_view();
+	
 	//инициализировать игровое поле
 	init_gamefield();
 	
@@ -75,6 +84,18 @@ function gamefield_view(bgcolor) {
 			}
 		}
 	}
+}
+
+//обновляет данные в таблице браузера
+function tableplayers_view() {
+	var table = document.getElementById("table-players");
+	
+	var result = "<tr><th>Name</th><th>Step</th></tr>";
+	for (var i = 0, n = players.length; i < n; i++) {
+		result .= "<tr><td>".players[i][0]."</td><td>".players[i][1]."</td></tr>";
+	}
+	
+	table.innerHTML = result;
 }
 
 //получить координату (х) мухи
@@ -265,6 +286,11 @@ function control_showhide() {
 		
 		gamefield_view(fly_outward);
 	}
+}
+
+//кнопка добавления нового пользователя
+function control_addplayer() {
+	
 }
 
 function set_gameover() {
