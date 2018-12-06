@@ -104,6 +104,27 @@
 	height: 30px;
 }
 
+#textfield-addplayer {
+	width: 200px;
+}
+
+/* http://htmlbook.ru/content/setka-tablitsy */
+#table-players {
+	margin: 0 auto;
+	width: 200px;
+	border-collapse: collapse;
+}
+
+#table-players th,
+#table-players td {
+	padding: 3px;
+    border: 1px solid black;
+}
+
+#table-players th {
+    background: #b0e0e6;
+}
+
 #info-steps, #info-outward {
 	font-weight: 700;
 }
