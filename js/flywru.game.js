@@ -92,7 +92,7 @@ function tableplayers_view() {
 	
 	var result = "<tr><th>Name</th><th>Step</th></tr>";
 	for (var i = 0, n = players.length; i < n; i++) {
-		result .= "<tr><td>".players[i][0]."</td><td>".players[i][1]."</td></tr>";
+		result += "<tr><td>"+players[i][0]+"</td><td>"+players[i][1]+"</td></tr>";
 	}
 	
 	table.innerHTML = result;
@@ -290,7 +290,21 @@ function control_showhide() {
 
 //кнопка добавления нового пользователя
 function control_addplayer() {
+	var textfield = document.getElementById("textfield-addplayer");
 	
+	var text = textfield.value;
+	
+	if (textfield.value == null || textfield.value.length === 0) {
+		text = "Unknown";
+	}
+	
+	add_player(text);
+}
+
+function add_player(playername) {
+	players.push([playername, 0]);
+	
+	tableplayers_view();
 }
 
 function set_gameover() {
