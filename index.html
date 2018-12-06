@@ -1,109 +1,154 @@
 <!-- http://htmlbook.ru/samhtml/struktura-html-koda -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
- <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="js/flywru.game.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fly Where Are You?</title>
- </head>
- <body>
-  <div id="flywru">
-   <h1>Fly Where Are You?</h1>
-   <p>Word games among friends.</p>
-   <!-- http://anton.shevchuk.name/html-and-css/css-for-beginners-simple-css-buttons/ -->
-   <table style="margin:0 auto; text-align: center">
-    <tr>
-	 <td></td>
-	 <td>
-	  <table style="width: 100%;">
-	   <tr>
-	    <td style="border: 1px solid black; width: 75px;">Steps: <span id="info-steps">0</span></td>
-	   </tr>
-	  </table>
-	 </td>
-	 <td></td>
-	</tr>
-    <tr>
-	 <td></td>
-	 <td>
-	  <div class="maincontrolbutton up"><a href="#" title="up" onclick="maincontrolbutton_up()"></a></div>
-	 </td>
-	 <td></td>
-	</tr>
-	<tr>
-	 <td>
-	  <div class="maincontrolbutton left"><a href="#" title="left" onclick="maincontrolbutton_left()"></a></div>
-	 </td>
-	 <td>
-	  <div id="gamefield">
-		<table id="gamefieldtable">
-			<tr>
-				 <td>1</td>
-				 <td>2</td>
-				 <td>3</td>
-			</tr>
-			<tr>
-				 <td>4</td>
-				 <td><img id="fly" src="images/fly.png"></td>
-				 <td>6</td>
-			</tr>
-			<tr>
-				 <td>7</td>
-				 <td>8</td>
-				 <td>9</td>
-			</tr>
-		</table>
-	  </div></td>
-	 <td>
-	  <div class="maincontrolbutton right"><a href="#" title="right" onclick="maincontrolbutton_right()"></a></div>
-	 </td>
-	</tr>
-	<tr>
-	 <td></td>
-	 <td>
-	  <div class="maincontrolbutton down"><a href="#" title="down" onclick="maincontrolbutton_down()"></a></div>
-	 </td>
-	 <td></td>
-	</tr>
-	<tr>
-	 <td></td>
-	 <td>
-	  <table style="width: 100%;">
-	   <tr>
-	    <td><div id="infonotback">Can't be back!</div></td>
-	   </tr>
-	   <tr>
-	    <td><div id="gameover">Game Over</div></td>
-	   </tr>
-	  </table>
-	 </td>
-	 <td></td>
-	</tr>
-   </table>
-   <div id="control">
-    <ul>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/flywru.game.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Fly Where Are You?</title>
+</head>
+<body>
+<div id="f-wrapper">
+	<!-- заголовок -->
+	<div id="f-header">
+		<h1>Fly Where Are You?</h1>
+		<p>Word games among friends.</p>
+	</div>
+	<!-- компоненты -->
+	<div id="f-componets">
+		<!-- игровое поле с кнопками управления мухой -->
+		<div id="fc-field">
+			<table>
+				<tr>
+					<td></td>
+					<td><div class="fc-b-move js-b-up"><a href="" title="up" onclick="js_b_up()"></div></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><div class="fc-b-move js-b-left"><a href="" title="left" onclick="js_b_left()"></div></td>
+					<td><table id="js-t-field"><!-- js --></table></td>
+					<td><div class="fc-b-move js-b-right"><a href="" title="right" onclick="js_b_right()"></div></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><div class="fc-b-move js-b-down"><a href="" title="down" onclick="js_b_down()"></div></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<!-- меню игры -->
+		<div id="fc-menu">
+			<ul>
+				<li><button id="js-b-showhide" onclick="js_b_showhide()">Hide</button></li>
+				<li><button id="js-b-reset" onclick="js_b_reset()">Reset</button></li>
+				<li><input id="js-tf-newplayer" placeholder="New Player" type="text"></li>
+				<li><button id="js-b-newplayer" onclick="js_b_newplayer()">Add new player</button></li>
+			</ul>
+		</div>
+		<!-- список игроков -->
+		<div id="fc-playerlist">
+			<table id="js-t-players"><!-- js --></table>
+		</div>
+		<!-- таблица статистики -->
+		<div id="fc-stat">
+			<table id="js-t-stat"><!-- js --></div>
+		</div>
+	</div>
+	
+	<!-- http://anton.shevchuk.name/html-and-css/css-for-beginners-simple-css-buttons/ -->
+	<!--
+	<table style="margin:0 auto; text-align: center">
+		<tr>
+		 <td></td>
+		 <td>
+		  <table style="width: 100%;">
+		   <tr>
+			<td style="border: 1px solid black; width: 75px;">Steps: <span id="info-steps">0</span></td>
+		   </tr>
+		  </table>
+		 </td>
+		 <td></td>
+		</tr>
+		<tr>
+		 <td></td>
+		 <td>
+		  <div class="maincontrolbutton up"><a href="#" title="up" onclick="maincontrolbutton_up()"></a></div>
+		 </td>
+		 <td></td>
+		</tr>
+		<tr>
+		 <td>
+		  <div class="maincontrolbutton left"><a href="#" title="left" onclick="maincontrolbutton_left()"></a></div>
+		 </td>
+		 <td>
+		  <div id="gamefield">
+			<table id="gamefieldtable">
+				<tr>
+					 <td>1</td>
+					 <td>2</td>
+					 <td>3</td>
+				</tr>
+				<tr>
+					 <td>4</td>
+					 <td><img id="fly" src="images/fly.png"></td>
+					 <td>6</td>
+				</tr>
+				<tr>
+					 <td>7</td>
+					 <td>8</td>
+					 <td>9</td>
+				</tr>
+			</table>
+		  </div></td>
+		 <td>
+		  <div class="maincontrolbutton right"><a href="#" title="right" onclick="maincontrolbutton_right()"></a></div>
+		 </td>
+		</tr>
+		<tr>
+		 <td></td>
+		 <td>
+		  <div class="maincontrolbutton down"><a href="#" title="down" onclick="maincontrolbutton_down()"></a></div>
+		 </td>
+		 <td></td>
+		</tr>
+		<tr>
+		 <td></td>
+		 <td>
+		  <table style="width: 100%;">
+		   <tr>
+			<td><div id="infonotback">Can't be back!</div></td>
+		   </tr>
+		   <tr>
+			<td><div id="gameover">Game Over</div></td>
+		   </tr>
+		  </table>
+		 </td>
+		 <td></td>
+		</tr>
+	</table>
+	<div id="control">
+	<ul>
 	 <li><button id="button-showhide" onclick="control_showhide()">Hide</button></li>
 	 <li><button id="button-reset" onclick="control_reset()">Reset</button></li>
 	 <li><input id="textfield-addplayer" placeholder="New Player" type="text"></li>
 	 <li><button id="button-addplayer" onclick="control_addplayer()">Add new player</button></li>
 	</ul>
-   </div>
-   <table id="table-players">
-    <tr>
+	</div>
+	<table id="table-players">
+	<tr>
 	 <th>Name</th>
 	 <th>Step</th>
 	</tr>
-    <tr>
+	<tr>
 	 <td>-</td>
 	 <td>-</td>
 	</tr>
-   </table>
-  </div>
-  <footer>
-   <a href="https://github.com/DocMadness/FlyWRU" target="_blank">https://github.com/DocMadness/FlyWRU</a>
-  </footer>
- </body>
+	</table>
+</div>-->
+<div id="f-footer">
+	<a href="https://github.com/DocMadness/FlyWRU" target="_blank">https://github.com/DocMadness/FlyWRU</a>
+</div>
+</body>
 </html>
