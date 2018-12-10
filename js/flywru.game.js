@@ -1,3 +1,6 @@
+//******************************************************************************
+// Переменные и константы
+//------------------------------------------------------------------------------
 //Матрица игрового поля.
 //-1 - ничего(нет мухи)
 // 0 - муха смотрит вверх
@@ -21,27 +24,51 @@ var fly_outward = false;
 //таблица игроков
 var players = [];
 
+//******************************************************************************
+//
+//------------------------------------------------------------------------------
 $(document).ready(function () {
 	//инициализация игроков
 	players = [['Guest', 0]];
+
+	//инициализировать игровое поле
+	init_gamefield();
 	
 	//обновить таблицу игроков
 	tableplayers_view();
-	
-	//инициализировать игровое поле
-	init_gamefield();
 	
 	//обновить игровое поле
 	gamefield_view(false);
 });
 
+ init_t_field();
+
 function init_gamefield() {
+	var table = document.getElementById("js-t-field");
+	var text = '';
+	text += '<tr>';
+	text += '	 <td>1</td>';
+	text += '	 <td>2</td>';
+	text += '	 <td>3</td>';
+	text += '</tr>';
+	text += '<tr>';
+	text += '	 <td>4</td>';
+	text += '	 <td><img id="fly" src="images/fly.png"></td>';
+	text += '	 <td>6</td>';
+	text += '</tr>';
+	text += '<tr>';
+	text += '	 <td>7</td>';
+	text += '	 <td>8</td>';
+	text += '	 <td>9</td>';
+	text += '</tr>';
+	table.innerHTML = text;
+	
 	gamefield = [[-1, -1, -1],[-1, 0, -1],[-1, -1, -1]];
 }
 
 //функция которая рисует поле в браузере
 function gamefield_view(bgcolor) {
-	var table = document.getElementById("gamefieldtable");
+	var table = document.getElementById("js-t-field");
 	
 	for (var r = 0, n = table.rows.length; r < n; r++) {
 		for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
@@ -88,7 +115,7 @@ function gamefield_view(bgcolor) {
 
 //обновляет данные в таблице браузера
 function tableplayers_view() {
-	var table = document.getElementById("table-players");
+	var table = document.getElementById("js-t-players");
 	
 	var result = "<tr><th>Name</th><th>Step</th></tr>";
 	for (var i = 0, n = players.length; i < n; i++) {
@@ -138,7 +165,7 @@ function get_fly_dir() {
 }
 
 //если нажата кнопка вверх
-function maincontrolbutton_up() {
+function js_b_up() {
 	if (!fly_outward) { //если не gameover
 		if (get_fly_dir() != 2) { //если муха не смотрит вниз
 		    //убираем информацию о том что назад ходить нельзя, если она была показана
@@ -172,7 +199,7 @@ function maincontrolbutton_up() {
 }
 
 //если нажата кнопка влево
-function maincontrolbutton_left() {
+function js_b_left() {
 	if (!fly_outward) {
 		if (get_fly_dir() != 1) {
 			var infonotback = document.getElementById('infonotback');
@@ -202,7 +229,7 @@ function maincontrolbutton_left() {
 }
 
 //если нажата кнопка вправо
-function maincontrolbutton_right() {
+function js_b_right() {
 	if (!fly_outward) {
 		if (get_fly_dir() != 3) {
 			var infonotback = document.getElementById('infonotback');
@@ -232,7 +259,7 @@ function maincontrolbutton_right() {
 }
 
 //если нажата кнопка вниз
-function maincontrolbutton_down() {
+function js_b_down() {
 	if (!fly_outward) {
 		if (get_fly_dir() != 0 || fly_steps == 0) {
 			var infonotback = document.getElementById('infonotback');
